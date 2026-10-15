@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens (see docs/design-direction.md)                        */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-forest-950: #0b2418;
+  --color-forest-900: #0f2e20;
+  --color-forest-800: #0d3b2e;
+  --color-gold-400: #c8a96a;
+  --color-gold-300: #d8c08f;
+  --color-bronze-700: #7a5e28;
+  --color-ivory-50: #f8f5ef;
+  --color-ivory-100: #f1ece2;
+  --color-ivory-200: #e9e2d4;
+  --color-stone-300: #d9d2c5;
+  --color-stone-600: #6b655a;
+  --color-ink-900: #1b1b1b;
+  --color-mist-300: #b9c2bc;
+
+  --font-display: var(--font-playfair), "Times New Roman", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-lux: cubic-bezier(0.17, 0.84, 0.44, 1);
+  --radius-ctl: 2px;
+}
+
+:root {
+  --dur-fast: 300ms;
+  --dur-base: 600ms;
+  --dur-slow: 1100ms;
+  --stagger: 90ms;
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --section: clamp(5rem, 10vw, 9rem);
+  --header-h: 5rem;
+
+  --neu-raised: 5px 5px 12px rgb(122 104 74 / 0.16), -5px -5px 12px rgb(255 255 255 / 0.9);
+  --neu-raised-sm: 3px 3px 7px rgb(122 104 74 / 0.16), -3px -3px 7px rgb(255 255 255 / 0.9);
+  --neu-inset: inset 2px 2px 5px rgb(122 104 74 / 0.18), inset -2px -2px 5px rgb(255 255 255 / 0.95);
+  --neu-dark-raised: 4px 4px 10px rgb(0 0 0 / 0.35), -3px -3px 9px rgb(255 255 255 / 0.05);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: var(--header-h);
+  }
+  body {
+    @apply bg-ivory-50 text-ink-900 font-sans antialiased;
+    font-size: 1rem;
+    line-height: 1.65;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-gold-400);
+    color: var(--color-forest-950);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-forest-800);
+    outline-offset: 3px;
+  }
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-gold-400);
+  }
+  img {
+    max-width: 100%;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* ------------------------------------------------------------------ */
+/* Type                                                               */
+/* ------------------------------------------------------------------ */
+@utility container-lux {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+@utility section-y {
+  padding-block: var(--section);
+}
+@utility t-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 8vw, 7.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+@utility t-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+@utility t-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+@utility t-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+@utility t-lead {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+@utility t-label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+@utility measure {
+  max-width: 38rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Neumorphic controls (restricted to small UI on ivory-100)          */
+/* ------------------------------------------------------------------ */
+@utility neu-surface {
+  background: var(--color-ivory-100);
+}
+@utility neu-raised {
+  background: var(--color-ivory-100);
+  box-shadow: var(--neu-raised-sm);
+  border: 1px solid rgb(255 255 255 / 0.6);
+}
+@utility neu-inset {
+  background: var(--color-ivory-100);
+  box-shadow: var(--neu-inset);
+  border: 1px solid rgb(122 104 74 / 0.12);
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion. Reveal styles only apply once JS has marked <html class="js">, */
+/* so content is always visible without JavaScript.                     */
+/* ------------------------------------------------------------------ */
+.js [data-reveal="fade"] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity var(--dur-slow) var(--ease-lux),
+    transform var(--dur-slow) var(--ease-lux);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.js [data-reveal="fade"].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.js [data-reveal="lines"] .rl-line {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.js [data-reveal="lines"] .rl-inner {
+  display: block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform var(--dur-slow) var(--ease-lux);
+  transition-delay: calc(var(--l, 0) * var(--stagger) + var(--d, 0ms));
+}
+.js [data-reveal="lines"].is-in .rl-inner {
+  transform: none;
+}
+
+.js [data-reveal="image"] {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1300ms var(--ease-lux);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-reveal="image"] .ri-media {
+  transform: scale(1.12);
+  transition: transform 1600ms var(--ease-lux);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-reveal="image"].is-in {
+  clip-path: inset(0 0 0 0);
+}
+.js [data-reveal="image"].is-in .ri-media {
+  transform: none;
+}
+
+/* Room for the mobile reservation bar on apartment pages. */
+@media (max-width: 1023px) {
+  body:has(#reserve) > footer {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Parallax: a CSS variable is written from the Lenis scroll loop. */
+.parallax-media {
+  transform: translate3d(0, calc(var(--p, 0) * 1px), 0) scale(1.1);
+  will-change: transform;
+}
+
+/* Roll-over label used by nav links and buttons. */
+.roll {
+  display: inline-flex;
+  overflow: clip;
+  position: relative;
+}
+.roll > span {
+  display: block;
+  transition: transform var(--dur-base) var(--ease-lux);
+}
+.roll > span + span {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(0, 110%, 0);
+}
+@media (hover: hover) {
+  .group:hover .roll > span:first-child,
+  .roll:hover > span:first-child {
+    transform: translate3d(0, -110%, 0);
+  }
+  .group:hover .roll > span + span,
+  .roll:hover > span + span {
+    transform: none;
+  }
+}
+
+/* Image hover: slow, contained scale. */
+.img-zoom {
+  transition: transform var(--dur-slow) var(--ease-lux);
+}
+@media (hover: hover) {
+  .group:hover .img-zoom {
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .js [data-reveal] .rl-inner,
+  .js [data-reveal] .ri-media,
+  .parallax-media {
+    transform: none !important;
+  }
+}

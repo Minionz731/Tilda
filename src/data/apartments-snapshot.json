@@ -1,0 +1,118 @@
+[
+ {
+  "id": "c8f14c01-deec-444d-973e-4cb12fe2f28b",
+  "slug": "tilda-classic",
+  "apartment_type": "classic",
+  "apartment_type_display": "Classic",
+  "name": "Tilda Classic",
+  "description": "•⁠  ⁠A bedroom en suite",
+  "price": "60000.00",
+  "weekend_price": null,
+  "max_guests": 2,
+  "available_units": 1,
+  "amenities_names": [],
+  "images": [
+   "/images/tilda-classic/tilda-classic-1.png",
+   "/images/tilda-classic/tilda-classic-2.png",
+   "/images/tilda-classic/tilda-classic-3.png"
+  ],
+  "featured_image": "/images/tilda-classic/tilda-classic-1.png",
+  "is_featured": true
+ },
+ {
+  "id": "9d583495-ac52-4cc6-83dc-db6487847048",
+  "slug": "tilda-deluxe",
+  "apartment_type": "deluxe",
+  "apartment_type_display": "Deluxe",
+  "name": "Tilda Deluxe",
+  "description": "•⁠  ⁠A standard en suite bedroom with either balcony  or kitchenette \n•⁠  ⁠Ideal for a couple",
+  "price": "70000.00",
+  "weekend_price": null,
+  "max_guests": 2,
+  "available_units": 2,
+  "amenities_names": [],
+  "images": [
+   "/images/tilda-deluxe/tilda-deluxe-1.png",
+   "/images/tilda-deluxe/tilda-deluxe-2.png",
+   "/images/tilda-deluxe/tilda-deluxe-3.png",
+   "/images/tilda-deluxe/tilda-deluxe-4.png",
+   "/images/tilda-deluxe/tilda-deluxe-5.png"
+  ],
+  "featured_image": "/images/tilda-deluxe/tilda-deluxe-2.png",
+  "is_featured": false
+ },
+ {
+  "id": "bda15bc9-92ef-4cf5-9dfa-6e7d3d31d6f5",
+  "slug": "tilda-super-deluxe",
+  "apartment_type": "super_deluxe",
+  "apartment_type_display": "Super Deluxe",
+  "name": "Tilda Super Deluxe",
+  "description": "•⁠  ⁠Bedroom en suite with balcony and kitchenette \n•⁠  ⁠Spacious, cozy en suite with either a balcony or a  kitchenette\n•⁠  ⁠Ideal for a couple or a guest",
+  "price": "75000.00",
+  "weekend_price": null,
+  "max_guests": 2,
+  "available_units": 6,
+  "amenities_names": [],
+  "images": [
+   "/images/tilda-super-deluxe/tilda-super-deluxe-1.png",
+   "/images/tilda-super-deluxe/tilda-super-deluxe-2.png",
+   "/images/tilda-super-deluxe/tilda-super-deluxe-3.png",
+   "/images/tilda-super-deluxe/tilda-super-deluxe-4.png",
+   "/images/tilda-super-deluxe/tilda-super-deluxe-5.png",
+   "/images/tilda-super-deluxe/tilda-super-deluxe-6.png"
+  ],
+  "featured_image": "/images/tilda-super-deluxe/tilda-super-deluxe-5.png",
+  "is_featured": true
+ },
+ {
+  "id": "cb3bb827-2b53-45ed-9faa-f8a528cf285e",
+  "slug": "tilda-private-suite",
+  "apartment_type": "private_suite",
+  "apartment_type_display": "Private Suite",
+  "name": "Tilda Private Suite",
+  "description": "•⁠  ⁠Bedroom, living room en suite and balcony  \n•⁠  ⁠kitchenette\n•⁠  ⁠Very spacious\n•⁠  ⁠Ideal for a couple",
+  "price": "100000.00",
+  "weekend_price": null,
+  "max_guests": 2,
+  "available_units": 1,
+  "amenities_names": [],
+  "images": [
+   "/images/tilda-private-suite/tilda-private-suite-1.png",
+   "/images/tilda-private-suite/tilda-private-suite-6.png",
+   "/images/tilda-private-suite/tilda-private-suite-2.png",
+   "/images/tilda-private-suite/tilda-private-suite-3.png",
+   "/images/tilda-private-suite/tilda-private-suite-4.png",
+   "/images/tilda-private-suite/tilda-private-suite-5.png"
+  ],
+  "featured_image": "/images/tilda-private-suite/tilda-private-suite-5.png",
+  "is_featured": false
+ },
+ {
+  "id": "f7d6eb07-d454-4496-862e-834411736d72",
+  "slug": "tilda-suite",
+  "apartment_type": "suite",
+  "apartment_type_display": "Suite",
+  "name": "Tilda Suite",
+  "description": "•⁠  ⁠A two bedroom en suite\n•⁠  ⁠kitchenette\n•⁠  ⁠Ideal for a family\n•⁠  ⁠Ideal for two couples.",
+  "price": "130000.00",
+  "weekend_price": null,
+  "max_guests": 4,
+  "available_units": 3,
+  "amenities_names": [],
+  "images": [
+   "/images/tilda-suite/tilda-suite-11.png",
+   "/images/tilda-suite/tilda-suite-6.png",
+   "/images/tilda-suite/tilda-suite-1.png",
+   "/images/tilda-suite/tilda-suite-7.png",
+   "/images/tilda-suite/tilda-suite-2.png",
+   "/images/tilda-suite/tilda-suite-3.png",
+   "/images/tilda-suite/tilda-suite-8.png",
+   "/images/tilda-suite/tilda-suite-9.png",
+   "/images/tilda-suite/tilda-suite-4.png",
+   "/images/tilda-suite/tilda-suite-5.png",
+   "/images/tilda-suite/tilda-suite-10.png"
+  ],
+  "featured_image": "/images/tilda-suite/tilda-suite-7.png",
+  "is_featured": true
+ }
+]
