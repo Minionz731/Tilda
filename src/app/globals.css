@@ -19,7 +19,7 @@
   --color-mist-300: #b9c2bc;
 
   --font-display: var(--font-playfair), "Times New Roman", serif;
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   --ease-lux: cubic-bezier(0.17, 0.84, 0.44, 1);
   --radius-ctl: 2px;

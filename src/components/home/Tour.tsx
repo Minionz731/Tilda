@@ -1,19 +1,64 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons/Icon";
 import { Eyebrow } from "@/components/ui/Button";
 import { contact, tour } from "@/data/site";
-import type { Photo } from "@/lib/images";
+
+const embedSrc = (autoplay: boolean) =>
+  `https://www.youtube.com/embed/${contact.tourVideoId}?` +
+  new URLSearchParams({
+    autoplay: autoplay ? "1" : "0",
+    mute: "1",
+    controls: "1",
+    rel: "0",
+    modestbranding: "1",
+    enablejsapi: "1",
+    playsinline: "1",
+  }).toString();
 
 /**
- * Virtual tour. Shows a real photograph as the poster and only loads the YouTube player
- * when the guest asks for it, so no third-party script runs on page load. Because playback
- * starts from a click, it can play with sound; no separate unmute step is needed.
+ * Virtual tour, behaving like the live site: a muted preview that starts playing when it
+ * scrolls into view, pauses when it leaves, and an Unmute control for sound.
+ * Autoplay is skipped for visitors who prefer reduced motion.
  */
-export function Tour({ poster }: { poster: Photo }) {
-  const [playing, setPlaying] = useState(false);
+export function Tour() {
+  const wrap = useRef<HTMLDivElement>(null);
+  const frame = useRef<HTMLIFrameElement>(null);
+  const started = useRef(false);
+  const [src, setSrc] = useState(() => embedSrc(false));
+  const [muted, setMuted] = useState(true);
+
+  const command = (func: string) => {
+    frame.current?.contentWindow?.postMessage(JSON.stringify({ event: "command", func, args: [] }), "https://www.youtube.com");
+  };
+
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (started.current) command("playVideo");
+          else {
+            started.current = true;
+            setSrc(embedSrc(true));
+          }
+        } else if (started.current) {
+          command("pauseVideo");
+        }
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const toggleSound = () => {
+    const next = !muted;
+    setMuted(next);
+    command(next ? "mute" : "unMute");
+  };
 
   return (
     <section aria-labelledby="tour-title" className="on-dark section-y bg-forest-950 text-ivory-50">
@@ -30,43 +75,32 @@ export function Tour({ poster }: { poster: Photo }) {
           </p>
         </div>
 
-        <div className="relative mt-12 aspect-video overflow-hidden bg-forest-900 md:mt-16" data-reveal="image">
-          {playing ? (
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${contact.tourVideoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
-              title={contact.tourVideoTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="absolute inset-0 h-full w-full border-0"
-            />
-          ) : (
-            <button type="button" onClick={() => setPlaying(true)} className="group absolute inset-0 block w-full text-left">
-              <span className="ri-media absolute inset-0">
-                <Image
-                  src={poster.src}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1440px) 1344px, 100vw"
-                  placeholder={poster.blurDataURL ? "blur" : "empty"}
-                  blurDataURL={poster.blurDataURL}
-                  className="img-zoom object-cover"
-                  style={{ objectPosition: poster.focus }}
-                />
-              </span>
-              <span className="absolute inset-0 bg-gradient-to-t from-forest-950/70 via-forest-950/10 to-transparent" />
-              <span className="absolute bottom-6 left-6 flex items-center gap-5 sm:bottom-10 sm:left-10">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-ivory-50 text-forest-950 shadow-[var(--neu-dark-raised)] transition-transform duration-500 ease-lux group-hover:scale-105 sm:h-20 sm:w-20">
-                  <Icon name="play" size={22} className="translate-x-0.5" />
-                </span>
-                <span>
-                  <span className="block font-display text-xl sm:text-2xl">Play the tour</span>
-                  <span className="t-label mt-1 block text-mist-300">Rooms &amp; facilities · with sound</span>
-                </span>
-              </span>
-              <span className="sr-only">Play video: {contact.tourVideoTitle}</span>
-            </button>
-          )}
+        {/* The reveal wipe sits on an outer wrapper so the observed element is never clipped. */}
+        <div className="mt-12 md:mt-16" data-reveal="fade">
+        <div ref={wrap} className="group relative aspect-video overflow-hidden bg-forest-900">
+          <iframe
+            ref={frame}
+            src={src}
+            title={contact.tourVideoTitle}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full border-0"
+          />
+          <button
+            type="button"
+            onClick={toggleSound}
+            aria-label={muted ? "Unmute video" : "Mute video"}
+            aria-pressed={!muted}
+            className="absolute bottom-4 right-4 z-10 flex min-h-11 items-center gap-2 rounded-full bg-ivory-50 px-4 text-[0.8125rem] font-semibold text-forest-950 shadow-[var(--neu-dark-raised)] transition-opacity duration-300 ease-lux focus-visible:opacity-100 sm:bottom-6 sm:right-6 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100"
+          >
+            <Icon name={muted ? "volume-mute" : "volume"} size={16} />
+            {muted ? "Unmute" : "Mute"}
+          </button>
         </div>
+        </div>
+        <p className="mt-5 text-center text-xs text-mist-300">
+          Hover over the video and click <span className="font-semibold text-ivory-50">Unmute</span> to turn on sound.
+        </p>
       </div>
     </section>
   );

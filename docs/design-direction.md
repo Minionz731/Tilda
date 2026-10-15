@@ -25,7 +25,7 @@ images; Kononenko Group was inspected live (DOM, computed styles, transitions, s
 2. **Deep, single-hue luxury palette** (near-black teal with one dark accent). → The brand's own
    forest green `#0B2418` becomes the anchoring dark, with gold used sparingly.
 3. **Serif display / clean sans body pairing**, headline weight carries the page. → Playfair
-   Display (already the brand's heading face) paired with Manrope.
+   Display (already the brand's heading face) paired with Inter (both already the brand fonts on the live site).
 4. **Categorised collections, then listings in clean three-up grids** with restrained metadata.
    → Featured apartments, then an index of all five types with guests and nightly rate.
 5. **A dark full-width "about" band and a closing CTA over photography.** → The virtual tour sits
@@ -38,7 +38,7 @@ images; Kononenko Group was inspected live (DOM, computed styles, transitions, s
    Tilda's actual business. → Confirms the section order already on the live site.
 3. **Warm neutral surfaces with one dark brown band** for the apartments list. → One dark band
    per page, not alternating dark/light stripes.
-4. **Uppercase micro-labels with wide tracking** for navigation and captions. → 11px Manrope
+4. **Uppercase micro-labels with wide tracking** for navigation and captions. → 11px Inter
    eyebrow labels throughout.
 5. **Text "Menu" control and an outlined Book Now** instead of a pill. → Same header pattern.
 
@@ -104,7 +104,7 @@ and `/dashboard` redirect to the live site, where accounts actually work.
 
 ### Typography
 - Display and headings: **Playfair Display** 400 and 400 italic (brand continuity), tracking -0.02em.
-- Body, UI, labels: **Manrope** 400 / 500 / 600.
+- Body, UI, labels: **Inter** 400 / 500 / 600 (the live site's body font).
 - Both self-hosted through `next/font`, so nothing render-blocking comes from a third party.
 
 | Role | Size | Line height |

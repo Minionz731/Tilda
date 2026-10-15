@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MotionRuntime } from "@/components/motion/MotionRuntime";
@@ -14,10 +14,10 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-manrope",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -43,7 +43,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-NG" className={`${playfair.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="en-NG" className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         {/* Enables reveal styles only when JS runs, so content is never hidden without it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

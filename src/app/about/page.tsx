@@ -69,7 +69,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Tour poster={photo(KEY.reception)} />
+      <Tour />
 
       {/* Stats */}
       <section aria-label="At a glance" className="container-lux py-16 md:py-20">
